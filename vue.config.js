@@ -1,6 +1,7 @@
 module.exports = {
 	devServer: {
-		// 项目运行时候的端口号
-		port: 4000
+		host: 'localhost',
+		port: 8086
+		// proxy: proxyObj
 	}
 }

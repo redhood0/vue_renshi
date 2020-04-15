@@ -1,10 +1,12 @@
 <template>
-	<div>
+	<div class="loginContainerDiv">
 		<el-form
 			class="loginContainer"
 			:rules="rules"
 			ref="loginFormRef"
 			:model="loginForm"
+			v-loading="loading"
+			element-loading-text="少女吟唱中..."
 		>
 			<h3 class="loginTitle">系统登陆</h3>
 			<el-form-item prop="username">
@@ -42,6 +44,7 @@ export default {
 	data() {
 		return {
 			checked: true,
+			loading: false,
 			loginForm: {
 				username: '',
 				password: '',
@@ -62,14 +65,23 @@ export default {
 	},
 	methods: {
 		onSubmit() {
+			this.$msg.success({ message: 'success.data.msg' })
 			this.$refs.loginFormRef.validate(valid => {
-				console.log(valid)
-				if (valid) {
-					alert('submit!')
-				} else {
-					console.log('error submit!!')
-					return false
-				}
+				this.loading = true
+				// if (valid) {
+				// 	this.Message.success({message: "success.data.msg"})
+				// 	//登录
+				// 	this.postRequest('logingModel', '/abc', { par: 'pars' })
+				// 	//成功弹出消息窗口
+
+				// 	//取消loading
+				// 	this.loading = false
+				// 	//路由跳转
+				// } else {
+				// 	console.log('error submit!!')
+				// 	this.loading = false
+				// 	return false
+				// }
 			})
 		}
 	}
@@ -98,9 +110,13 @@ export default {
 		margin: 0px 0px 15px 0px;
 	}
 }
-
-//     .el-form-item__content{
-//         display: flex;
-//         align-items: center;
-//     }
+.loginContainerDiv {
+	/deep/ .el-loading-text {
+		font-size: 16px;
+	}
+	/deep/ .el-loading-mask {
+		border-radius: 5px;
+		background-color: rgba(255, 255, 255, 0.8) !important;
+	}
+}
 </style>
